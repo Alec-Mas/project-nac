@@ -35,7 +35,10 @@
             <ul class="navbar-nav mr-auto">
                 @if (!Auth::guest())
                     <li><a class="nav-link" href="{{ route('jobs.create') }}">New Article</a></li>
-                 @endif
+                @endif
+              </li>
+            </ul>
+            <ul class="navbar-nav flex-row">
                 <!-- Authentication Links -->
                 @guest
                     <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
@@ -57,7 +60,6 @@
                     </form>
                 </div>
                 @endguest
-              </li>
             </ul>
           </div>
         </nav>
@@ -70,10 +72,8 @@
             </div>
             @endif
 
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    @include ('errors.list') {{-- Including error file --}}
-                </div>
+            <div class="container">
+                @include ('errors.list') {{-- Including error file --}}
             </div>
 
             @yield('content')

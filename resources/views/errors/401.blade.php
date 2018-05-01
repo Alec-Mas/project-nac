@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class='col-lg-4 col-lg-offset-4'>
-        <h1><center>401<br>
-        ACCESS DENIED</center></h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="jumbotron text-center">
+          <h1 class="display-4">Error 401</h1>
+          <p class="lead">Looks like you've tried going somewhere you shouldn't. Lets try to forget this ever happened ;).</p>
+        </div>
     </div>
+</div>
 
 @endsection

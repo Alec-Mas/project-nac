@@ -3,24 +3,27 @@
 @section('title', '| Edit Job')
 
 @section('content')
-<div class="row">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-9">
+            <div class="card">
+                <h5 class="card-header">Edit Job</h5>
+                <div class="card-body">
+                    {{ Form::model($job, array('route' => array('jobs.update', $job->id), 'method' => 'PUT')) }}
+                    <div class="form-group">
+                    {{ Form::label('title', 'Title') }}
+                    {{ Form::text('title', null, array('class' => 'form-control')) }}<br>
 
-    <div class="col-md-8 col-md-offset-2">
+                    {{ Form::label('body', 'Job Body') }}
+                    {{ Form::textarea('body', null, array('class' => 'form-control')) }}<br>
 
-        <h1>Edit Job</h1>
-        <hr>
-            {{ Form::model($job, array('route' => array('jobs.update', $job->id), 'method' => 'PUT')) }}
-            <div class="form-group">
-            {{ Form::label('title', 'Title') }}
-            {{ Form::text('title', null, array('class' => 'form-control')) }}<br>
+                    {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
 
-            {{ Form::label('body', 'Job Body') }}
-            {{ Form::textarea('body', null, array('class' => 'form-control')) }}<br>
-
-            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
-
-            {{ Form::close() }}
-    </div>
+                    {{ Form::close() }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

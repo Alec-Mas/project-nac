@@ -1,27 +1,24 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><h3>Jobs</h3></div>
-                    <div class="panel-heading">Page {{ $jobs->currentPage() }} of {{ $jobs->lastPage() }}</div>
-                    @foreach ($jobs as $job)
-                        <div class="panel-body">
-                            <li style="list-style-type:disc">
-                                <a href="{{ route('jobs.show', $job->id ) }}"><b>{{ $job->title }}</b><br>
-                                    <p class="teaser">
-                                       {{  str_limit($job->body, 100) }} {{-- Limit teaser to 100 characters --}}
-                                    </p>
-                                </a>
-                            </li>
-                        </div>
-                    @endforeach
-                    </div>
-                    <div class="text-center">
-                        {!! $jobs->links() !!}
-                    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-9">
+            <div class="card">
+                <h5 class="card-header">Page {{ $jobs->currentPage() }} of {{ $jobs->lastPage() }}</h5>
+                @foreach ($jobs as $job)
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ route('jobs.show', $job->id ) }}"><b>{{ $job->title }}</b><br></a>
+                    </h5>
+                    <p class="card-text">{{  str_limit($job->body, 100) }} {{-- Limit teaser to 100 characters --}}</p>
+                </div>
+                <hr>
+                @endforeach
+                <div class="card-footer text-muted">
+                    {!! $jobs->links() !!}
                 </div>
             </div>
         </div>
+    </div>
+</div>
 @endsection

@@ -4,46 +4,51 @@
 
 @section('content')
 
-<div class="col-lg-10 col-lg-offset-1">
-    <h1><i class="fa fa-key"></i> Roles
+<div class="row justify-content-center">
+    <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a href="{{ route('users.index') }}" class="nav-link">Users</a>
+              </li>
+              <li class="nav-item">
+                  <a href="{{ route('permissions.index') }}" class="nav-link">Permissions</a></h1>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+              <table class="table">
+                  <thead class="thead-dark">
+                      <tr>
+                          <th>Role</th>
+                          <th>Permissions</th>
+                          <th>Operation</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach ($roles as $role)
+                      <tr>
 
-    <a href="{{ route('users.index') }}" class="btn btn-default pull-right">Users</a>
-    <a href="{{ route('permissions.index') }}" class="btn btn-default pull-right">Permissions</a></h1>
-    <hr>
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Role</th>
-                    <th>Permissions</th>
-                    <th>Operation</th>
-                </tr>
-            </thead>
+                          <td>{{ $role->name }}</td>
 
-            <tbody>
-                @foreach ($roles as $role)
-                <tr>
+                          <td>{{ str_replace(array('[',']','"'),'', $role->permissions()->pluck('name')) }}</td>{{-- Retrieve array of permissions associated to a role and convert to string --}}
+                          <td>
+                          <a href="{{ URL::to('roles/'.$role->id.'/edit') }}" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
 
-                    <td>{{ $role->name }}</td>
+                          {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id] ]) !!}
+                          {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                          {!! Form::close() !!}
 
-                    <td>{{ str_replace(array('[',']','"'),'', $role->permissions()->pluck('name')) }}</td>{{-- Retrieve array of permissions associated to a role and convert to string --}}
-                    <td>
-                    <a href="{{ URL::to('roles/'.$role->id.'/edit') }}" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
-
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id] ]) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!}
-
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-
-        </table>
+                          </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+              <a href="{{ URL::to('roles/create') }}" class="btn btn-success">Add Role</a>
+          </div>
+        </div>
     </div>
-
-    <a href="{{ URL::to('roles/create') }}" class="btn btn-success">Add Role</a>
-
 </div>
 
 @endsection

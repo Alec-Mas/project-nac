@@ -4,31 +4,37 @@
 
 @section('content')
 
-<div class='col-lg-4 col-lg-offset-4'>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-9">
+            <div class="card">
+                <h5 class="card-header">Add Permission</h5>
+                <div class="card-body">
+                    <div class="form-group">
+                        {{ Form::open(array('url' => 'permissions')) }}
 
-    <h1><i class='fa fa-key'></i> Add Permission</h1>
-    <br>
+                        <div class="form-group">
+                            {{ Form::label('name', 'Name') }}
+                            {{ Form::text('name', '', array('class' => 'form-control')) }}
+                        </div><br>
+                        @if(!$roles->isEmpty())
+                            <h4>Assign Permission to Roles</h4>
 
-    {{ Form::open(array('url' => 'permissions')) }}
+                            @foreach ($roles as $role)
+                                {{ Form::checkbox('roles[]',  $role->id ) }}
+                                {{ Form::label($role->name, ucfirst($role->name)) }}<br>
 
-    <div class="form-group">
-        {{ Form::label('name', 'Name') }}
-        {{ Form::text('name', '', array('class' => 'form-control')) }}
-    </div><br>
-    @if(!$roles->isEmpty()) //If no roles exist yet
-        <h4>Assign Permission to Roles</h4>
+                            @endforeach
+                        @endif
+                        <br>
+                        {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
 
-        @foreach ($roles as $role)
-            {{ Form::checkbox('roles[]',  $role->id ) }}
-            {{ Form::label($role->name, ucfirst($role->name)) }}<br>
-
-        @endforeach
-    @endif
-    <br>
-    {{ Form::submit('Add', array('class' => 'btn btn-primary')) }}
-
-    {{ Form::close() }}
-
+                        {{ Form::close() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @endsection
