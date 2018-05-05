@@ -34,7 +34,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 @if (!Auth::guest())
-                    <li><a class="nav-link" href="{{ route('jobs.create') }}">New Article</a></li>
+                    <li><a class="nav-link" href="{{ route('jobs.create') }}">Create a Job</a></li>
                 @endif
               </li>
             </ul>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Job;
+use App\Company;
 use Auth;
 use Session;
 
@@ -22,6 +23,10 @@ class JobController extends Controller
     public function index()
     {
         $jobs = Job::orderby('id', 'desc')->paginate(5); //show only 5 items at a time in descending order
+
+        $company = Company::find(1);
+
+        //dd($company->jobs);
 
         return view('jobs.index', compact('jobs'));
     }
