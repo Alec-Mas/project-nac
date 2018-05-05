@@ -33,20 +33,20 @@ class UsersTableSeeder extends Seeder
         }
 
         // Seed test editor
-        $seededAdminEmail = 'editor@project-nac.com';
+        $seededAdminEmail = 'agency@project-nac.com';
         $password = 'password';
         $user = User::where('email', '=', $seededAdminEmail)->first();
         if ($user === null)
         {
             $user = User::create([
-                'name'                           => 'Editor',
+                'name'                           => 'Agency',
                 'email'                          => $seededAdminEmail,
                 'password'                       => $password,
             ]);
             //$user->profile()->save($profile);
             //$user->attachRole($adminRole);
             $user->save();
-            $role = Role::where('name', '=', 'Editor')->first();
+            $role = Role::where('name', '=', 'Agency')->first();
             $user->roles()->sync($role);  //If one or more role is selected associate user to roles
         }
     }

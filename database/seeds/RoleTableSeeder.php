@@ -62,5 +62,36 @@ class RoleTableSeeder extends Seeder
         //Fetch the newly created role and assign permission
         $role = Role::where('name', '=', $name)->first();
         $role->givePermissionTo($p);
+
+        // Agency Role
+        $name = 'Agency';
+
+        $role = new Role();
+        $role->name = $name;
+        $role->save();
+
+        $permission = 'Create Job';
+        $p = Permission::where('name', '=', $permission)->firstOrFail();
+        //Fetch the newly created role and assign permission
+        $role = Role::where('name', '=', $name)->first();
+        $role->givePermissionTo($p);
+
+        $permission = 'Edit Job';
+        $p = Permission::where('name', '=', $permission)->firstOrFail();
+        //Fetch the newly created role and assign permission
+        $role = Role::where('name', '=', $name)->first();
+        $role->givePermissionTo($p);
+
+        $permission = 'Create Company';
+        $p = Permission::where('name', '=', $permission)->firstOrFail();
+        //Fetch the newly created role and assign permission
+        $role = Role::where('name', '=', $name)->first();
+        $role->givePermissionTo($p);
+
+        $permission = 'Edit Company';
+        $p = Permission::where('name', '=', $permission)->firstOrFail();
+        //Fetch the newly created role and assign permission
+        $role = Role::where('name', '=', $name)->first();
+        $role->givePermissionTo($p);
     }
 }

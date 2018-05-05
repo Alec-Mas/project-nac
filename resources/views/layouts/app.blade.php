@@ -50,6 +50,12 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 @if (!Auth::guest())
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('jobs') }}">Jobs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('companies') }}">Companies</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Create
@@ -73,6 +79,7 @@
                   </div>
                 </li>
                 @endrole
+                
               </li>
             </ul>
             <ul class="navbar-nav ml-auto">

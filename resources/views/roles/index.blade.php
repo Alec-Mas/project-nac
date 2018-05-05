@@ -9,21 +9,24 @@
         <div class="card">
           <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
-              <li class="nav-item">
-                <a href="{{ route('users.index') }}" class="nav-link">Users</a>
-              </li>
-              <li class="nav-item">
-                  <a href="{{ route('permissions.index') }}" class="nav-link">Permissions</a></h1>
-              </li>
+                <li class="nav-item">
+                  <a href="{{ route('users.index') }}" class="nav-link">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('roles.index') }}" class="nav-link active">Roles</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('permissions.index') }}" class="nav-link">Permissions</a></h1>
+                </li>
             </ul>
           </div>
           <div class="card-body">
               <table class="table">
                   <thead class="thead-dark">
                       <tr>
-                          <th>Role</th>
-                          <th>Permissions</th>
-                          <th>Operation</th>
+                          <th width="10%">Role</th>
+                          <th width="60%">Permissions</th>
+                          <th width="30%">Operation</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -34,10 +37,11 @@
 
                           <td>{{ str_replace(array('[',']','"'),'', $role->permissions()->pluck('name')) }}</td>{{-- Retrieve array of permissions associated to a role and convert to string --}}
                           <td>
-                          <a href="{{ URL::to('roles/'.$role->id.'/edit') }}" class="btn btn-info pull-left" style="margin-right: 3px;">Edit</a>
-
                           {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id] ]) !!}
-                          {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                          <a href="{{ URL::to('roles/'.$role->id.'/edit') }}" class="btn btn-primary">
+                              <span class="fa fa-wrench fa-lg" aria-hidden="true"></span>
+                          </a>
+                          {!! Form::button('<i class=" fa fa-trash-o fa-lg"></i>', ['type' => 'submit', 'class' => 'btn btn-danger'] )  !!}
                           {!! Form::close() !!}
 
                           </td>

@@ -15,7 +15,7 @@
                         {{ Form::text('job_title', null, array('class' => 'form-control')) }}
                         <br>
 
-                        {{ Form::label('job_description', 'Job Body') }}
+                        {{ Form::label('job_description', 'Job Description') }}
                         {{ Form::textarea('job_description', null, array('class' => 'form-control')) }}
                         <br>
 

@@ -11,15 +11,25 @@
                 <div class="card-body">
                     {{ Form::model($job, array('route' => array('jobs.update', $job->id), 'method' => 'PUT')) }}
                     <div class="form-group">
-                    {{ Form::label('title', 'Title') }}
-                    {{ Form::text('job_title', null, array('class' => 'form-control')) }}<br>
+                        {{ Form::label('job_title', 'Job Title') }}
+                        {{ Form::text('job_title', null, array('class' => 'form-control')) }}
+                        <br>
 
-                    {{ Form::label('description', 'Job Body') }}
-                    {{ Form::textarea('job_description', null, array('class' => 'form-control')) }}<br>
+                        {{ Form::label('job_description', 'Job Description') }}
+                        {{ Form::textarea('job_description', null, array('class' => 'form-control')) }}
+                        <br>
 
-                    {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+                        {{ Form::label('job_salary', 'Salary') }}
+                        {{ Form::number('job_salary', null, array('class' => 'form-control')) }}
+                        <br>
 
-                    {{ Form::close() }}
+                        {{ Form::label('package_id', 'Package') }}
+                        {{ Form::select('package_id', ['1' => 'Standard', '2' => 'Featured', '3' => 'Sponsored'], array('class' => 'form-control')) }}
+                        <br>
+                        
+                        {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
+
+                        {{ Form::close() }}
                     </div>
                 </div>
             </div>

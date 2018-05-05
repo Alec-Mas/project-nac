@@ -19,7 +19,6 @@ class CreateCompaniesTable extends Migration
             $table->string('company_description');
             $table->string('company_address');
             $table->string('company_phone');
-            $table->string('company_industry');
             $table->string('company_size');
             $table->string('abn_number');
             $table->timestamps();

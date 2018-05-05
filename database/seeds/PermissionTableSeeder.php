@@ -19,6 +19,23 @@ class PermissionTableSeeder extends Seeder
         $permission->name = $name;
         $permission->save();
 
+        /* Company Permissions */
+        $name = 'Create Company';
+        $permission = new Permission();
+        $permission->name = $name;
+        $permission->save();
+
+        $name = 'Edit Company';
+        $permission = new Permission();
+        $permission->name = $name;
+        $permission->save();
+
+        $name = 'Delete Company';
+        $permission = new Permission();
+        $permission->name = $name;
+        $permission->save();
+
+        /* Job Permissions */
         $name = 'Create Job';
         $permission = new Permission();
         $permission->name = $name;

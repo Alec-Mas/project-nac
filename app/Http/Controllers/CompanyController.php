@@ -12,7 +12,7 @@ use Session;
 class CompanyController extends Controller
 {
     public function __construct() {
-        $this->middleware(['auth', 'clearance', 'isAdmin']);
+        $this->middleware(['auth', 'agency'])->except('index', 'show');
     }
     /**
      * Display a listing of the resource.
@@ -46,19 +46,27 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         //Validating title and body field
-        /*$this->validate($request, [
-            'title'=>'required|max:100',
-            'body' =>'required',
+        $this->validate($request, [
+            'company_name'=>'required|max:100',
+            'company_description' =>'required',
+            'company_address' =>'required',
+            'company_phone' =>'required',
+            'company_size' =>'required',
+            'abn_number' =>'required',
             ]);
 
-        $title = $request['title'];
-        $body = $request['body'];
+        $company_name = $request['company_name'];
+        $company_description = $request['company_description'];
+        $company_address = $request['company_address'];
+        $company_phone = $request['company_phone'];
+        $company_size = $request['company_size'];
+        $abn_number = $request['abn_number'];
 
-        $job = Job::create($request->only('title', 'body'));
+        $company = Company::create($request->only('company_name', 'company_description', 'company_address', 'company_phone', 'company_size', 'abn_number'));
         //Display a successful message upon save
         return redirect()->route('companies.index')
             ->with('flash_message', 'Company,
-             '. $company->name.' created');*/
+             '. $company->company_name.' created');
     }
 
     /**
@@ -96,19 +104,29 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*$this->validate($request, [
-            'title'=>'required|max:100',
-            'body'=>'required',
-        ]);
+        $this->validate($request, [
+            'company_name'=>'required|max:100',
+            'company_description' =>'required',
+            'company_address' =>'required',
+            'company_phone' =>'required',
+            'company_size' =>'required',
+            'abn_number' =>'required',
+            ]);
 
-        $job = Job::findOrFail($id);
-        $job->title = $request->input('title');
-        $job->body = $request->input('body');
-        $job->save();
+        $company = Company::findOrFail($id);
 
-        return redirect()->route('jobs.show',
-            $job->id)->with('flash_message',
-            'Article, '. $job->title.' updated');*/
+        $company->company_name = $request->input('company_name');
+        $company->company_description = $request->input('company_description');
+        $company->company_address = $request->input('company_address');
+        $company->company_phone = $request->input('company_phone');
+        $company->company_size = $request->input('company_size');
+        $company->abn_number = $request->input('abn_number');
+
+        $company->save();
+
+        return redirect()->route('companies.show',
+            $company->id)->with('flash_message',
+            'Company, '. $company->company_name.' updated');
     }
 
     /**
