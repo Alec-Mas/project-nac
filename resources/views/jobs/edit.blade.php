@@ -12,10 +12,10 @@
                     {{ Form::model($job, array('route' => array('jobs.update', $job->id), 'method' => 'PUT')) }}
                     <div class="form-group">
                     {{ Form::label('title', 'Title') }}
-                    {{ Form::text('title', null, array('class' => 'form-control')) }}<br>
+                    {{ Form::text('job_title', null, array('class' => 'form-control')) }}<br>
 
-                    {{ Form::label('body', 'Job Body') }}
-                    {{ Form::textarea('body', null, array('class' => 'form-control')) }}<br>
+                    {{ Form::label('description', 'Job Body') }}
+                    {{ Form::textarea('job_description', null, array('class' => 'form-control')) }}<br>
 
                     {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
 

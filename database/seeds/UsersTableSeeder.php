@@ -15,13 +15,13 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         // Seed test admin
-        $seededAdminEmail = 'admin@project-nac.com';
+        $seededAdminEmail = 'alec@project-nac.com';
         $password = 'password';
         $user = User::where('email', '=', $seededAdminEmail)->first();
         if ($user === null)
         {
             $user = User::create([
-                'name'                           => 'Admin',
+                'name'                           => 'Alec',
                 'email'                          => $seededAdminEmail,
                 'password'                       => $password,
             ]);
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
         if ($user === null)
         {
             $user = User::create([
-                'name'                           => 'Admin',
+                'name'                           => 'Editor',
                 'email'                          => $seededAdminEmail,
                 'password'                       => $password,
             ]);

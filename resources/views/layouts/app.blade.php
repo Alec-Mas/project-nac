@@ -19,11 +19,27 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        /* Stackoverflow preview fix, please ignore */
+        .navbar-nav {
+          flex-direction: row;
+        }
 
+        .nav-link {
+          padding-right: .5rem !important;
+          padding-left: .5rem !important;
+        }
+
+        /* Fixes dropdown menus placed on the right side */
+        .ml-auto .dropdown-menu {
+          left: auto !important;
+          right: 0px;
+        }
+      </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
@@ -34,15 +50,40 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 @if (!Auth::guest())
-                    <li><a class="nav-link" href="{{ route('jobs.create') }}">Create a Job</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Create
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('jobs.create') }}">Create a Job</a>
+                        <a class="dropdown-item" href="{{ route('companies.create') }}">Create a Company</a>
+
+                    </div>
+                </li>
                 @endif
+                @role('Admin')
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{ url('users') }}">User Management</a>
+                      <a class="dropdown-item" href="{{ url('roles') }}">Role Management</a>
+                      <a class="dropdown-item" href="{{ url('permissions') }}">Permission Management</a>
+                  </div>
+                </li>
+                @endrole
               </li>
             </ul>
-            <ul class="navbar-nav flex-row">
+            <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
-                    <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                    <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                </li>
                 @else
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -59,6 +100,7 @@
                         @csrf
                     </form>
                 </div>
+                </li>
                 @endguest
             </ul>
           </div>

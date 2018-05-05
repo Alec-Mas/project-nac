@@ -9,12 +9,11 @@ use App\Company;
 use Auth;
 use Session;
 
-class JobController extends Controller
+class CompanyController extends Controller
 {
     public function __construct() {
-        $this->middleware(['auth', 'clearance'])->except('index', 'show');
+        $this->middleware(['auth', 'clearance', 'isAdmin']);
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,13 +21,9 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::orderby('id', 'desc')->paginate(5); //show only 5 items at a time in descending order
+        $companies = Company::orderby('id', 'desc')->paginate(5); //show only 5 items at a time in descending order
 
-        //$company = Company::find(1);
-
-        //dd($company->jobs);
-
-        return view('jobs.index', compact('jobs'));
+        return view('companies.index', compact('companies'));
     }
 
     /**
@@ -38,7 +33,8 @@ class JobController extends Controller
      */
     public function create()
     {
-        return view('jobs.create');
+        //
+        return view('companies.create');
     }
 
     /**
@@ -50,23 +46,19 @@ class JobController extends Controller
     public function store(Request $request)
     {
         //Validating title and body field
-        $this->validate($request, [
-            'job_title'=>'required|max:100',
-            'job_description' =>'required|max:200',
-            'job_salary' =>'required',
+        /*$this->validate($request, [
+            'title'=>'required|max:100',
+            'body' =>'required',
             ]);
 
-        $job_title = $request['job_title'];
-        $job_description = $request['job_description'];
-        $job_salary = $request['job_salary'];
-        $package_id = 1;
+        $title = $request['title'];
+        $body = $request['body'];
 
-        $job = Job::create($request->only('job_title', 'job_description', 'job_salary' , 'package_id'));
-
+        $job = Job::create($request->only('title', 'body'));
         //Display a successful message upon save
-        return redirect()->route('jobs.index')
-            ->with('flash_message', 'Job,
-             '. $job->job_title.' Created');
+        return redirect()->route('companies.index')
+            ->with('flash_message', 'Company,
+             '. $company->name.' created');*/
     }
 
     /**
@@ -77,9 +69,9 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job = Job::findOrFail($id); //Find post of id = $id
+        $company = Company::findOrFail($id); //Find post of id = $id
 
-        return view ('jobs.show', compact('job'));
+        return view ('companies.show', compact('company'));
     }
 
     /**
@@ -90,9 +82,9 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        $job = Job::findOrFail($id);
+        $company = Company::findOrFail($id);
 
-        return view('jobs.edit', compact('job'));
+        return view('companies.edit', compact('company'));
     }
 
     /**
@@ -104,19 +96,19 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'job_title'=>'required|max:100',
-            'job_description'=>'required',
+        /*$this->validate($request, [
+            'title'=>'required|max:100',
+            'body'=>'required',
         ]);
 
         $job = Job::findOrFail($id);
-        $job->job_title = $request->input('job_title');
-        $job->job_description = $request->input('job_description');
+        $job->title = $request->input('title');
+        $job->body = $request->input('body');
         $job->save();
 
         return redirect()->route('jobs.show',
             $job->id)->with('flash_message',
-            'Job, '. $job->job_title.' updated');
+            'Article, '. $job->title.' updated');*/
     }
 
     /**
@@ -127,11 +119,11 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        $job = Job::findOrFail($id);
-        $job->delete();
+        $company = Company::findOrFail($id);
+        $company->delete();
 
-        return redirect()->route('jobs.index')
+        return redirect()->route('companies.index')
             ->with('flash_message',
-             'Job Successfully Deleted');
+             'Company successfully deleted');
     }
 }

@@ -9,9 +9,11 @@
                 <h5 class="card-header">Job Details</h5>
                 <div class="card-body">
                     <h5 class="card-title">
-                        {{ $job->title }}
+                        {{ $job->job_title }}
                     </h5>
-                    <p class="card-text">{{ $job->body }}</p>
+                    <p class="card-text">Description: {{ $job->job_description }}</p>
+                    <p class="card-text">Salary: {{ $job->job_salary }}</p>
+                    <p class="card-text">Package: {{ $job->package_id }}</p>
                 </div>
                 <hr>
                 <div class="card-footer text-muted">
