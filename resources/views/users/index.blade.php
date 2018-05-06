@@ -53,7 +53,7 @@
                           @endforeach
                       </tbody>
                   </table>
-                  <a href="{{ URL::to('roles/create') }}" class="btn btn-success">Add User</a>
+                  <a href="{{ URL::to('users/create') }}" class="btn btn-success">Add User</a>
               </div>
             </div>
         </div>

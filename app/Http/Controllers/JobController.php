@@ -128,6 +128,13 @@ class JobController extends Controller
     public function destroy($id)
     {
         $job = Job::findOrFail($id);
+
+        if($job->company()->exists())
+        {
+            $company = Company::findOrFail($job->company[0]->id);
+            $company->jobs()->detach($id);
+        }
+
         $job->delete();
 
         return redirect()->route('jobs.index')

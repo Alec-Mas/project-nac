@@ -140,6 +140,15 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         $company = Company::findOrFail($id);
+
+        if($company->jobs()->exists())
+        {
+            foreach($company->jobs as $job)
+            {
+                $company->jobs()->detach($job);
+            }
+        }
+
         $company->delete();
 
         return redirect()->route('companies.index')
