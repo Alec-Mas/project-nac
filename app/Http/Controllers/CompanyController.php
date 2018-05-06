@@ -183,9 +183,9 @@ class CompanyController extends Controller
 
         $company->jobs()->attach($request->job_id);
 
-        return redirect()->route('jobs.index')
-            ->with('flash_message',
-             'Job successfully linked ');
+        return redirect()->route('jobs.show',
+        $request->job_id)->with('flash_message',
+        $job->job_title.' linked to '.$company->company_name);
     }
 
     public function unlink(Request $request)
@@ -195,8 +195,8 @@ class CompanyController extends Controller
 
         $company->jobs()->detach($request->job_id);
 
-        return redirect()->route('jobs.index')
-            ->with('flash_message',
-             'Job successfully unlinked ');
+        return redirect()->route('jobs.show',
+        $request->job_id)->with('flash_message',
+        $job->job_title.' link removed from '.$company->company_name);
     }
 }

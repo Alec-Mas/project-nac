@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-sm-9">
+        <div class="col-sm-6">
             <div class="card">
                 <h5 class="card-header">Edit {{$user->name}}</h5>
                 <div class="card-body">

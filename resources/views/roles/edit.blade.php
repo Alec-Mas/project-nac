@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-sm-9">
+        <div class="col-sm-6">
             <div class="card">
                 <h5 class="card-header">Edit Role: {{$role->name}}</h5>
                 <div class="card-body">
@@ -17,7 +17,7 @@
                             {{ Form::label('name', 'Role Name') }}
                             {{ Form::text('name', null, array('class' => 'form-control')) }}
                         </div>
-                    
+
                         <h5><b>Assign Permissions</b></h5>
                         @foreach ($permissions as $permission)
 

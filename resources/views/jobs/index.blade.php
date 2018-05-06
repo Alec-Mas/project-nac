@@ -3,8 +3,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm-9">
+            <div class="jumbotron text-center">
+              <h1 class="display-4">Jobs</h1>
+            </div>
             <div class="card">
-                <h5 class="card-header">Page {{ $jobs->currentPage() }} of {{ $jobs->lastPage() }}</h5>
+                <h5 class="card-header">{{ $jobs->count() }} jobs currently advertised</h5>
                 @foreach ($jobs as $job)
                 <div class="card-body">
                     <h5 class="card-title">
@@ -12,7 +15,6 @@
                     </h5>
                     <p class="card-text">{{  str_limit($job->job_description, 100) }} {{-- Limit teaser to 100 characters --}}</p>
                 </div>
-                <hr>
                 @endforeach
                 <div class="card-footer text-muted">
                     {!! $jobs->links() !!}

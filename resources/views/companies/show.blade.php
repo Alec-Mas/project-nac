@@ -15,9 +15,14 @@
                     <p class="card-text">{{ $company->company_phone }}</p>
                     <p class="card-text">{{ $company->company_size }}</p>
                     <p class="card-text">{{ $company->abn_number }}</p>
-                    <p class="card-text">Jobs: {{ $company->jobs }}</p>
+                    <hr>
+                    <h5 class="card-title">
+                        Advertised Jobs
+                    </h5>
+                    @foreach($company->jobs as $job)
+                    <p class="card-text"><a href="{{ route('jobs.show', $job->id ) }}"><b>{{ $job->job_title }}</b><br></a></p>
+                    @endforeach
                 </div>
-                <hr>
                 <div class="card-footer text-muted">
                     {!! Form::open(['method' => 'DELETE', 'route' => ['companies.destroy', $company->id] ]) !!}
                     <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>

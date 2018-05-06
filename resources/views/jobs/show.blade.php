@@ -19,14 +19,14 @@
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ $job->job_title }}
+                        @if($job->company()->exists())
+                        <p class="card-text"><a href="{{ route('companies.show', $job->company[0]->id ) }}"><b>{{ $job->company[0]->company_name }}</b><br></a></p>
+                        @endif
                     </h5>
                     <p class="card-text">Description: {{ $job->job_description }}</p>
                     <p class="card-text">Salary: {{ $job->job_salary }}</p>
                     <p class="card-text">Package: {{ $job->package_id }}</p>
-                    <p class="card-text">Company: {{ $job->company }}</p>
-
                 </div>
-                <hr>
                 <div class="card-footer text-muted">
                     {!! Form::open(['method' => 'DELETE', 'route' => ['jobs.destroy', $job->id] ]) !!}
                     <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
