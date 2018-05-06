@@ -15,6 +15,7 @@
                     <p class="card-text">{{ $company->company_phone }}</p>
                     <p class="card-text">{{ $company->company_size }}</p>
                     <p class="card-text">{{ $company->abn_number }}</p>
+                    <p class="card-text">Jobs: {{ $company->jobs }}</p>
                 </div>
                 <hr>
                 <div class="card-footer text-muted">

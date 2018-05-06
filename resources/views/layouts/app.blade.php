@@ -11,7 +11,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -79,7 +78,7 @@
                   </div>
                 </li>
                 @endrole
-                
+
               </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -128,5 +127,8 @@
             @yield('content')
         </main>
     </div>
+    {{-- Scripts --}}
+    <script src="{{ mix('/js/app.js') }}"></script>
+    @yield('footer_scripts')
 </body>
 </html>

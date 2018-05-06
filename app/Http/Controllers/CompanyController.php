@@ -8,6 +8,8 @@ use App\Job;
 use App\Company;
 use Auth;
 use Session;
+use DB;
+
 
 class CompanyController extends Controller
 {
@@ -143,5 +145,58 @@ class CompanyController extends Controller
         return redirect()->route('companies.index')
             ->with('flash_message',
              'Company successfully deleted');
+    }
+
+    public function search(Request $request)
+    {
+        if($request->ajax())
+        {
+            $output="";
+            $companies=DB::table('companies')->where('company_name','LIKE','%'.$request->search."%")->get();
+
+            if($companies)
+            {
+                foreach ($companies as $key => $company)
+                {
+                    /*$output.='<td style="float: left">'.$company->company_name.'</td>'.
+                            '<td style="float: right">'.
+                                '<button id="link-company" href="'.action('CompanyController@link').'" type="button" class="btn btn-success" data-id="'.$company->id.'">
+                                    <span class="fa fa-plus fa-lg" aria-hidden="true"></span>
+                                </button>'.'</td>';*/
+
+                    $output.='<td style="float: left">'.$company->company_name.'</td>'.
+                            '<td style="float: right">'.'<form method="POST" action="'.action('CompanyController@link').'">'.'
+                                <input id="company_id" name="company_id" type="hidden" value="'.$company->id.'">
+                                <input id="job_id" name="job_id" type="hidden" value="'.$request->job_id.'">
+                                <input type="hidden" name="_token" id="csrf-token" value="'.$request->_token.'" />
+                                <button type="submit" class="btn btn-success"><i class=" fa fa-plus fa-lg"></i></button></form></td>';
+                }
+                return Response($output);
+            }
+        }
+    }
+
+    public function link(Request $request)
+    {
+        $company = Company::findOrFail($request->company_id);
+        $job = Job::findOrFail($request->job_id);
+
+        $company->jobs()->attach($request->job_id);
+
+        return redirect()->route('jobs.index')
+            ->with('flash_message',
+             'Job successfully linked ');
+    }
+
+    public function unlink(Request $request)
+    {
+        $company = Company::findOrFail($request->company_id);
+        $job = Job::findOrFail($request->job_id);
+
+        $company->jobs()->detach($request->job_id);
+
+        return redirect()->route('jobs.index')
+            ->with('flash_message',
+             'Job successfully unlinked ');
     }
 }

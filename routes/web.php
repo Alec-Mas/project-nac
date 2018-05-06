@@ -28,3 +28,7 @@ Route::resource('permissions', 'PermissionController');
 Route::resource('jobs', 'JobController');
 
 Route::resource('companies', 'CompanyController');
+
+Route::get('/search','CompanyController@search');
+Route::post('/link','CompanyController@link');
+Route::post('/unlink','CompanyController@unlink');

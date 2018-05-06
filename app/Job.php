@@ -12,4 +12,9 @@ class Job extends Model
         'job_salary',
         'package_id',
     ];
+
+    public function company()
+    {
+        return $this->belongsToMany('App\Company', 'company_job', 'job_id', 'company_id');
+    }
 }

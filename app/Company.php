@@ -19,7 +19,7 @@ class Company extends Model
 
     public function jobs()
     {
-        return $this->belongsToMany('App\Job');
+        return $this->belongsToMany('App\Job', 'company_job', 'company_id', 'job_id');
     }
 
 }
