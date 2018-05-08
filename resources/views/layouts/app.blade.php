@@ -40,7 +40,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ route('dashboard') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

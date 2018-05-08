@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+# Dashboard Route
+
+Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboard');
+
 Route::get('/', 'JobController@index')->name('home');
 
 Route::resource('users', 'UserController');
@@ -29,6 +33,7 @@ Route::resource('jobs', 'JobController');
 
 Route::resource('companies', 'CompanyController');
 
+# Company Routes
 Route::get('/search','CompanyController@search');
 Route::post('/link','CompanyController@link');
 Route::post('/unlink','CompanyController@unlink');

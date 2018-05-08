@@ -59,9 +59,11 @@ class JobController extends Controller
         $job_title = $request['job_title'];
         $job_description = $request['job_description'];
         $job_salary = $request['job_salary'];
+        $request['user_id'] = Auth::user()->id;
+        $user_id = $request['user_id'];
         $package_id = 1;
 
-        $job = Job::create($request->only('job_title', 'job_description', 'job_salary' , 'package_id'));
+        $job = Job::create($request->only('job_title', 'job_description', 'job_salary' , 'package_id', 'user_id'));
 
         //Display a successful message upon save
         return redirect()->route('jobs.index')

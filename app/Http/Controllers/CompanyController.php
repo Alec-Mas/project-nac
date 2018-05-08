@@ -173,12 +173,12 @@ class CompanyController extends Controller
                                     <span class="fa fa-plus fa-lg" aria-hidden="true"></span>
                                 </button>'.'</td>';*/
 
-                    $output.='<td style="float: left">'.$company->company_name.'</td>'.
+                    $output.='<tr><td style="float: left">'.$company->company_name.'</td>'.
                             '<td style="float: right">'.'<form method="POST" action="'.action('CompanyController@link').'">'.'
                                 <input id="company_id" name="company_id" type="hidden" value="'.$company->id.'">
                                 <input id="job_id" name="job_id" type="hidden" value="'.$request->job_id.'">
                                 <input type="hidden" name="_token" id="csrf-token" value="'.$request->_token.'" />
-                                <button type="submit" class="btn btn-success"><i class=" fa fa-plus fa-lg"></i></button></form></td>';
+                                <button type="submit" class="btn btn-success icon-style"><i class=" fa fa-plus fa-lg"></i></button></form></td></tr>';
                 }
                 return Response($output);
             }

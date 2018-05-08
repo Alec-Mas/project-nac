@@ -19,6 +19,8 @@ class CreateJobsTable extends Migration
             $table->string('job_description');
             $table->string('job_salary');
             $table->integer('package_id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@
                     <span style="float: left">Job Details</span>
                     @can('Edit Company')
                     <span style="float: right">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#linkCompany">
+                        <button type="button" class="btn btn-primary icon-style" data-toggle="modal" data-target="#linkCompany">
                             <span class="fa fa-plus fa-lg" aria-hidden="true"></span>
                         </button>
                     </span>
@@ -19,22 +19,24 @@
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ $job->job_title }}
-                        @if($job->company()->exists())
-                        <p class="card-text"><a href="{{ route('companies.show', $job->company[0]->id ) }}"><b>{{ $job->company[0]->company_name }}</b><br></a></p>
-                        @endif
                     </h5>
+                    @if($job->company()->exists())
+                    <p class="card-text"><a href="{{ route('companies.show', $job->company[0]->id ) }}"><b>{{ $job->company[0]->company_name }}</b><br></a></p>
+                    @endif
                     <p class="card-text">Description: {{ $job->job_description }}</p>
                     <p class="card-text">Salary: {{ $job->job_salary }}</p>
                     <p class="card-text">Package: {{ $job->package_id }}</p>
                 </div>
                 <div class="card-footer text-muted">
                     {!! Form::open(['method' => 'DELETE', 'route' => ['jobs.destroy', $job->id] ]) !!}
-                    <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
+                    <!--<a href="{{ url('jobs') }}" class="btn btn-primary">Back</a>-->
                     @can('Edit Job')
-                    <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-info" role="button">Edit</a>
+                    <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-info icon-style">
+                        <i class="fa fa-wrench fa-lg" aria-hidden="true"></i>
+                    </a>
                     @endcan
                     @can('Delete Job')
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                    {!! Form::button('<i class=" fa fa-trash-o fa-lg"></i>', ['type' => 'submit', 'class' => 'btn btn-danger icon-style'] )  !!}
                     @endcan
                     {!! Form::close() !!}
                 </div>
@@ -58,9 +60,7 @@
                 <label for="job-title" class="col-form-label">Find an existing Company.</label>
                 <input type="text" class="form-control" id="search" name="search" maxlength="50">
                 <br>
-                <table width="100%">
-                    <tr id="search-results">
-                    </tr>
+                <table width="100%" id="search-results">
                 </table>
             </div>
             @else
@@ -79,7 +79,7 @@
                                 <input id="company_id" name="company_id" type="hidden" value="{{$job->company[0]->id}}">
                                 <input id="job_id" name="job_id" type="hidden" value="{{$job->id}}">
                                 <input type="hidden" name="_token" id="csrf-token" value="{{ csrf_token() }}" />
-                                <button type="submit" class="btn btn-danger"><i class=" fa fa-trash-o fa-lg"></i></button>
+                                <button type="submit" class="btn btn-danger icon-style"><i class=" fa fa-trash-o fa-lg"></i></button>
                             </form>
                         </td>
                     </tr>

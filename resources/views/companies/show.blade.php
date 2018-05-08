@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-sm-9">
             <div class="card">
-                <h5 class="card-header">Job Details</h5>
+                <h5 class="card-header">Company Details</h5>
                 <div class="card-body">
                     <h5 class="card-title">
                         {{ $company->company_name }}
@@ -25,12 +25,13 @@
                 </div>
                 <div class="card-footer text-muted">
                     {!! Form::open(['method' => 'DELETE', 'route' => ['companies.destroy', $company->id] ]) !!}
-                    <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
+                    <!--<a href="{{ url('companies') }}" class="btn btn-primary">Back</a>-->
                     @can('Edit Company')
-                    <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-info" role="button">Edit</a>
-                    @endcan
+                    <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-info icon-style">
+                        <i class="fa fa-wrench fa-lg" aria-hidden="true"></i>
+                    </a>                    @endcan
                     @can('Delete Company')
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                    {!! Form::button('<i class=" fa fa-trash-o fa-lg"></i>', ['type' => 'submit', 'class' => 'btn btn-danger icon-style'] )  !!}
                     @endcan
                     {!! Form::close() !!}
                 </div>

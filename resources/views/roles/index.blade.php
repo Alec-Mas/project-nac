@@ -22,34 +22,36 @@
                 </ul>
               </div>
               <div class="card-body">
-                  <table class="table">
-                      <thead class="thead-dark">
-                          <tr>
-                              <th width="10%">Role</th>
-                              <th width="60%">Permissions</th>
-                              <th width="30%">Operation</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          @foreach ($roles as $role)
-                          <tr>
+                  <div class="table-responsive">
+                      <table class="table">
+                          <thead class="thead-dark">
+                              <tr>
+                                  <th width="10%">Role</th>
+                                  <th width="60%">Permissions</th>
+                                  <th width="30%">Operation</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              @foreach ($roles as $role)
+                              <tr>
 
-                              <td>{{ $role->name }}</td>
+                                  <td>{{ $role->name }}</td>
 
-                              <td>{{ str_replace(array('[',']','"'),'', $role->permissions()->pluck('name')) }}</td>{{-- Retrieve array of permissions associated to a role and convert to string --}}
-                              <td>
-                              {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id] ]) !!}
-                              <a href="{{ URL::to('roles/'.$role->id.'/edit') }}" class="btn btn-primary">
-                                  <span class="fa fa-wrench fa-lg" aria-hidden="true"></span>
-                              </a>
-                              {!! Form::button('<i class=" fa fa-trash-o fa-lg"></i>', ['type' => 'submit', 'class' => 'btn btn-danger'] )  !!}
-                              {!! Form::close() !!}
+                                  <td>{{ str_replace(array('[',']','"'),'', $role->permissions()->pluck('name')) }}</td>{{-- Retrieve array of permissions associated to a role and convert to string --}}
+                                  <td>
+                                  {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id] ]) !!}
+                                  <a href="{{ URL::to('roles/'.$role->id.'/edit') }}" class="btn btn-primary icon-style">
+                                      <span class="fa fa-wrench fa-lg" aria-hidden="true"></span>
+                                  </a>
+                                  {!! Form::button('<i class=" fa fa-trash-o fa-lg"></i>', ['type' => 'submit', 'class' => 'btn btn-danger icon-style'] )  !!}
+                                  {!! Form::close() !!}
 
-                              </td>
-                          </tr>
-                          @endforeach
-                      </tbody>
-                  </table>
+                                  </td>
+                              </tr>
+                              @endforeach
+                          </tbody>
+                      </table>
+                  </div>
                   <a href="{{ URL::to('roles/create') }}" class="btn btn-success">Add Role</a>
               </div>
             </div>
