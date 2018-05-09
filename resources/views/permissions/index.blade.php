@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-sm-6">
+        <div class="col-sm-9">
             <div class="card">
               <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">

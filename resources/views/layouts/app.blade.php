@@ -38,95 +38,77 @@
       </style>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <aside class="col-12 col-md-2 p-0 bg-dark">
+                <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-2">
+                    <div class="collapse navbar-collapse">
+                        <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+                            <li class="nav-item">
+                                <a class="navbar-brand" href="{{ route('dashboard') }}">
+                                    <i class="fa fa-handshake-o fa-fw"></i> {{ config('app.name', 'Laravel') }}
+                                </a>
+                            </li>
+                            @if (!Auth::guest())
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="{{ url('dashboard') }}"><i class="fa fa-dashboard fa-fw"></i><span class="d-none d-md-inline"> Dashboard</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="{{ url('jobs') }}"><i class="fa fa-heart-o fa-fw"></i><span class="d-none d-md-inline"> Jobs</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="{{ url('companies') }}"><i class="fa fa-building fa-fw"></i><span class="d-none d-md-inline"> Companies</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="{{ route('jobs.create') }}"><i class="fa fa-plus-circle fa-fw"></i><span class="d-none d-md-inline"> Create a Job</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="{{ route('companies.create') }}"><i class="fa fa-plus-square-o fa-fw"></i><span class="d-none d-md-inline"> Create a Company</span></a>
+                            </li>
+                            @role('Admin')
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="{{ url('users') }}"><i class="fa fa-user-plus fa-fw"></i><span class="d-none d-md-inline"> User Management</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="{{ url('roles') }}"><i class="fa fa-users fa-fw"></i><span class="d-none d-md-inline"> Role Management</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="{{ url('permissions') }}"><i class="fa fa-shield fa-fw"></i><span class="d-none d-md-inline"> Permission Management</span></a>
+                            </li>
+                            @endrole
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i>
+                                    {{ __('Logout') }}
+                                </a>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                @if (!Auth::guest())
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('jobs') }}">Jobs</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('companies') }}">Companies</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Create
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('jobs.create') }}">Create a Job</a>
-                        <a class="dropdown-item" href="{{ route('companies.create') }}">Create a Company</a>
-
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                            @endif
+                        </ul>
                     </div>
-                </li>
+                </nav>
+            </aside>
+
+            <main class="col bg-faded py-3">
+                @if(Session::has('flash_message'))
+                <div class="container">
+                    <div class="alert alert-success"><em> {!! session('flash_message') !!}</em>
+                    </div>
+                </div>
                 @endif
-                @role('Admin')
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Admin
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{{ url('users') }}">User Management</a>
-                      <a class="dropdown-item" href="{{ url('roles') }}">Role Management</a>
-                      <a class="dropdown-item" href="{{ url('permissions') }}">Permission Management</a>
-                  </div>
-                </li>
-                @endrole
 
-              </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <!-- Authentication Links -->
-                @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                </li>
-                @else
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{ Auth::user()->name }}
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                <div class="container">
+                    @include ('errors.list') {{-- Including error file --}}
                 </div>
-                </li>
-                @endguest
-            </ul>
-          </div>
-        </nav>
-
-        <main class="py-4">
-            @if(Session::has('flash_message'))
-            <div class="container">
-                <div class="alert alert-success"><em> {!! session('flash_message') !!}</em>
-                </div>
-            </div>
-            @endif
-
-            <div class="container">
-                @include ('errors.list') {{-- Including error file --}}
-            </div>
-
-            @yield('content')
-        </main>
+                <hr>
+                @yield('content')
+                <hr>
+            </main>
+        </div>
     </div>
     {{-- Scripts --}}
     <script src="{{ mix('/js/app.js') }}"></script>

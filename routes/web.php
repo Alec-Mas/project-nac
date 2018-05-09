@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 Auth::routes();
 
@@ -34,6 +34,18 @@ Route::resource('jobs', 'JobController');
 Route::resource('companies', 'CompanyController');
 
 # Company Routes
-Route::get('/search','CompanyController@search');
-Route::post('/link','CompanyController@link');
-Route::post('/unlink','CompanyController@unlink');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/search','CompanyController@search');
+    Route::post('/link','CompanyController@link');
+    # Protect the route
+    Route::get('/link', function()
+    {
+        abort('401');
+    });
+    Route::post('/unlink','CompanyController@unlink');
+    # Protect the route
+    Route::get('/unlink', function()
+    {
+        abort('401');
+    });
+});

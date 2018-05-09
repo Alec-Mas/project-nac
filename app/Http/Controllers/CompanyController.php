@@ -187,25 +187,39 @@ class CompanyController extends Controller
 
     public function link(Request $request)
     {
-        $company = Company::findOrFail($request->company_id);
-        $job = Job::findOrFail($request->job_id);
+        if(isset($request->job_id))
+        {
+            $company = Company::findOrFail($request->company_id);
+            $job = Job::findOrFail($request->job_id);
 
-        $company->jobs()->attach($request->job_id);
+            $company->jobs()->attach($request->job_id);
 
-        return redirect()->route('jobs.show',
-        $request->job_id)->with('flash_message',
-        $job->job_title.' linked to '.$company->company_name);
+            return redirect()->route('jobs.show',
+            $request->job_id)->with('flash_message',
+            $job->job_title.' linked to '.$company->company_name);
+        }
+        else
+        {
+            abort('401');
+        }
     }
 
     public function unlink(Request $request)
     {
-        $company = Company::findOrFail($request->company_id);
-        $job = Job::findOrFail($request->job_id);
+        if(isset($request->company_id))
+        {
+            $company = Company::findOrFail($request->company_id);
+            $job = Job::findOrFail($request->job_id);
 
-        $company->jobs()->detach($request->job_id);
+            $company->jobs()->detach($request->job_id);
 
-        return redirect()->route('jobs.show',
-        $request->job_id)->with('flash_message',
-        $job->job_title.' link removed from '.$company->company_name);
+            return redirect()->route('jobs.show',
+            $request->job_id)->with('flash_message',
+            $job->job_title.' link removed from '.$company->company_name);
+        }
+        else
+        {
+            abort('401');
+        }
     }
 }
