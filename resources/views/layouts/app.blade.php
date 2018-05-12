@@ -19,99 +19,164 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
-    <style>
-        /* Stackoverflow preview fix, please ignore */
-        .navbar-nav {
-          flex-direction: row;
-        }
-
-        .nav-link {
-          padding-right: .5rem !important;
-          padding-left: .5rem !important;
-        }
-
-        /* Fixes dropdown menus placed on the right side */
-        .ml-auto .dropdown-menu {
-          left: auto !important;
-          right: 0px;
-        }
-      </style>
 </head>
-<body>
-    <div class="container-fluid h-100">
-        <div class="row h-100">
-            <aside class="col-12 col-md-2 p-0 bg-dark">
-                <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-2">
-                    <div class="collapse navbar-collapse">
-                        <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
-                            <li class="nav-item">
-                                <a class="navbar-brand" href="{{ route('dashboard') }}">
-                                    <i class="fa fa-handshake-o fa-fw"></i> {{ config('app.name', 'Laravel') }}
-                                </a>
-                            </li>
-                            @if (!Auth::guest())
-                            <li class="nav-item">
-                                <a class="nav-link pl-0" href="{{ url('dashboard') }}"><i class="fa fa-dashboard fa-fw"></i><span class="d-none d-md-inline"> Dashboard</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pl-0" href="{{ url('jobs') }}"><i class="fa fa-heart-o fa-fw"></i><span class="d-none d-md-inline"> Jobs</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pl-0" href="{{ url('companies') }}"><i class="fa fa-building fa-fw"></i><span class="d-none d-md-inline"> Companies</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pl-0" href="{{ route('jobs.create') }}"><i class="fa fa-plus-circle fa-fw"></i><span class="d-none d-md-inline"> Create a Job</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pl-0" href="{{ route('companies.create') }}"><i class="fa fa-plus-square-o fa-fw"></i><span class="d-none d-md-inline"> Create a Company</span></a>
-                            </li>
-                            @role('Admin')
-                            <li class="nav-item">
-                                <a class="nav-link pl-0" href="{{ url('users') }}"><i class="fa fa-user-plus fa-fw"></i><span class="d-none d-md-inline"> User Management</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pl-0" href="{{ url('roles') }}"><i class="fa fa-users fa-fw"></i><span class="d-none d-md-inline"> Role Management</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pl-0" href="{{ url('permissions') }}"><i class="fa fa-shield fa-fw"></i><span class="d-none d-md-inline"> Permission Management</span></a>
-                            </li>
-                            @endrole
-                            <li class="nav-item">
-                                <a class="nav-link pl-0" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-fw"></i>
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </li>
-                            @endif
-                        </ul>
-                    </div>
-                </nav>
-            </aside>
-
-            <main class="col bg-faded py-3">
-                @if(Session::has('flash_message'))
-                <div class="container">
-                    <div class="alert alert-success"><em> {!! session('flash_message') !!}</em>
-                    </div>
-                </div>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+        <a class="navbar-brand" href="{{ route('dashboard') }}">{{ config('app.name', 'Laravel') }}</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                @if (!Auth::guest())
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link" href="{{ route('dashboard') }}">
+                        <i class="fa fa-fw fa-dashboard"></i>
+                        <span class="nav-link-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Companies">
+                    <a class="nav-link" href="{{ url('companies') }}">
+                        <i class="fa fa-fw fa-building"></i>
+                        <span class="nav-link-text">Companies</span>
+                    </a>
+                </li>
                 @endif
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Job Management">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseJobManagement" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-wrench"></i>
+                        <span class="nav-link-text">Job Management</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseJobManagement">
+                        <li>
+                            <a href="#">View my Jobs</a>
+                        </li>
+                        @can('Create Job')
+                        <li>
+                            <a href="{{ route('jobs.create') }}">Create a Job</a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @hasanyrole('Agency|Admin')
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Company Management">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCompanyManagement" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-handshake-o"></i>
+                        <span class="nav-link-text">Company Management</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseCompanyManagement">
+                        @can('Create Company')
+                        <li>
+                            <a href="{{ route('companies.create') }}">Create a Company</a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endrole
+                @role('Admin')
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="User Management">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUserManagement" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-users"></i>
+                        <span class="nav-link-text">User Management</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseUserManagement">
+                        @can('Administer roles & permissions')
+                        <li>
+                            <a href="{{ route('users.create') }}">Create Users</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('roles.create') }}">Create Roles</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('permissions.create') }}">Create a Permissions</a>
+                        </li>
+                        @endcan
+                    </ul>
+                </li>
+                @endrole
+            </ul>
+            <ul class="navbar-nav sidenav-toggler">
+                <li class="nav-item">
+                    <a class="nav-link text-center" id="sidenavToggler">
+                        <i class="fa fa-fw fa-angle-left"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Search">
+                            <span class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fa fa-fw fa-sign-out"></i>Logout
+                    </a>
 
-                <div class="container">
-                    @include ('errors.list') {{-- Including error file --}}
-                </div>
-                <hr>
-                @yield('content')
-                <hr>
-            </main>
+                </li>
+            </ul>
         </div>
-    </div>
-    {{-- Scripts --}}
-    <script src="{{ mix('/js/app.js') }}"></script>
-    @yield('footer_scripts')
+    </nav>
+  <div class="content-wrapper">
+      <div class="container-fluid">
+          @if(Session::has('flash_message'))
+          <div class="container">
+              <div class="alert alert-success"><em> {!! session('flash_message') !!}</em>
+              </div>
+          </div>
+          @endif
+          <div class="container">
+              @include ('errors.list') {{-- Including error file --}}
+          </div>
+          @yield('content')
+      </div>
+      <!-- /.container-fluid-->
+      <!-- /.content-wrapper-->
+      <footer class="sticky-footer">
+          <div class="container">
+              <div class="text-center">
+                  <small>Copyright © Eldora Studios {{ Carbon\Carbon::now()->year}}</small>
+              </div>
+          </div>
+      </footer>
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded" href="#page-top">
+          <i class="fa fa-angle-up"></i>
+      </a>
+      <!-- Logout Modal-->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                  <div class="modal-footer">
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                      <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                          {{ __('Logout') }}
+                      </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          @csrf
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+      {{-- Scripts --}}
+      <script src="{{ mix('/js/app.js') }}"></script>
+      @yield('footer_scripts')
+  </div>
 </body>
 </html>

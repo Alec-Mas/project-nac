@@ -1,8 +1,14 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <h1 class="text-center">Welcome, {{ Auth::user()->name}}</h1>
+
+<!-- Breadcrumbs-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active">Dashboard</li>
+</ol>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Welcome, {{ Auth::user()->name}}</h1>
+        </div>
     </div>
     <div class="row justify-content-center">
         <p>{{Auth::user()->roles()->pluck('name')->implode(' ')}}</p>
@@ -11,7 +17,7 @@
     <div class="row justify-content-center">
         <div class="col-sm-10">
             <div class="card-deck justify-content-center">
-                <div class="card text-center dashboard-tile">
+                <div class="card border-light mb-3 text-center dashboard-tile">
                     <br>
                     <i class="fa fa-search fa-5x" aria-hidden="true"></i>
                     <div class="card-body">
@@ -24,33 +30,24 @@
                         <p class="card-text">{{Auth::user()->jobs()->count()}} jobs advertised</p>
                         @endif
                     </div>
-                    <div class="card-footer">
-                        <small class="text-muted">View ALL your Jobs</small>
-                    </div>
                 </div>
                 @can('Create Job')
-                <div class="card text-center dashboard-tile">
-                    <br>
-                    <i class="fa fa-plus-circle fa-5x" aria-hidden="true"></i>
+                <div class="card border-light mb-3 text-center dashboard-tile">
                     <div class="card-body">
-                        <h5 class="card-title">Create a new Job</h5>
-
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Manage your Jobs</small>
+                        <a class="btn btn-primary dashboard-link" href="{{ route('jobs.create') }}">
+                            <i class="fa fa-plus-circle fa-5x" aria-hidden="true"></i>
+                        </a>
+                        <h5 class="card-title" style="padding-top: 10px;">Create a new Job</h5>
                     </div>
                 </div>
                 @endcan
                 @can('Create Company')
-                <div class="card text-center dashboard-tile">
-                    <br>
-                    <i class="fa fa-building fa-5x" aria-hidden="true"></i>
+                <div class="card border-light mb-3 text-center dashboard-tile">
                     <div class="card-body">
-                        <h5 class="card-title">Create a new Company</h5>
-
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Manage ALL Companies</small>
+                        <a class="btn btn-success dashboard-link" href="{{ route('companies.create') }}">
+                            <i class="fa fa-building-o fa-5x" aria-hidden="true"></i>
+                        </a>
+                        <h5 class="card-title" style="padding-top: 10px;">Create a new Company</h5>
                     </div>
                 </div>
                 @endcan
@@ -62,42 +59,33 @@
         <div class="col-sm-10">
             <div class="card-deck justify-content-center">
                 @can('Administer roles & permissions')
-                <div class="card text-center dashboard-tile">
-                    <br>
-                    <i class="fa fa-user fa-5x" aria-hidden="true"></i>
+                <div class="card border-light mb-3 text-center dashboard-tile">
                     <div class="card-body">
-                        <h5 class="card-title">Manage Users</h5>
+                        <a class="btn btn-info dashboard-link" href="{{ url('users') }}">
+                            <i class="fa fa-user-plus fa-5x" aria-hidden="true"></i>
+                        </a>
+                        <h5 class="card-title" style="padding-top: 10px;">Manage Users</h5>
 
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Manage website-wide users</small>
                     </div>
                 </div>
-                <div class="card text-center dashboard-tile">
-                    <br>
-                    <i class="fa fa-user fa-5x" aria-hidden="true"></i>
+                <div class="card border-light mb-3 text-center dashboard-tile">
                     <div class="card-body">
-                        <h5 class="card-title">Manage Roles</h5>
-
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Manage website-wide account roles</small>
+                        <a class="btn btn-dark dashboard-link" href="{{ url('roles') }}">
+                            <i class="fa fa-users fa-5x" aria-hidden="true"></i>
+                        </a>
+                        <h5 class="card-title" style="padding-top: 10px;">Manage Roles</h5>
                     </div>
                 </div>
-                <div class="card text-center dashboard-tile">
-                    <br>
-                    <i class="fa fa-user fa-5x" aria-hidden="true"></i>
+                <div class="card border-light mb-3 text-center dashboard-tile">
                     <div class="card-body">
-                        <h5 class="card-title">Manage Permissions</h5>
-
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Manage website-wide permissions</small>
+                        <a class="btn btn-danger dashboard-link" href="{{ url('roles') }}">
+                            <i class="fa fa-shield fa-5x" aria-hidden="true"></i>
+                        </a>
+                        <h5 class="card-title" style="padding-top: 10px;">Manage Permissions</h5>
                     </div>
                 </div>
                 @endcan
             </div>
         </div>
     </div>
-</div>
 @endsection

@@ -18,7 +18,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/all.css') }}" rel="stylesheet">
     <style>
         /* Stackoverflow preview fix, please ignore */
         .navbar-nav {
@@ -39,7 +38,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark shadow">
             <a class="navbar-brand" href="{{ route('dashboard') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
@@ -60,7 +59,6 @@
                     <a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
                 </li>
                 @endif
-              </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
