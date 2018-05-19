@@ -48,13 +48,13 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                @if (!Auth::guest())
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('jobs') }}">Jobs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('companies') }}">Companies</a>
                 </li>
+                @if (!Auth::guest())
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('dashboard') }}">Dashboard</a>
                 </li>

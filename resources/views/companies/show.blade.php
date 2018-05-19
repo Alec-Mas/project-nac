@@ -1,15 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.landing')
 @section('content')
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-sm-9">
+            @if(Auth::check())
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{url('companies')}}">Companies</a></li>
+                <li class="breadcrumb-item active">{{$company->company_name}}</li>
+            </ol>
+            @endif
+            <div class="jumbotron text-center">
+              <h1 class="display-4">{{ $company->company_name }}</h1>
+            </div>
             <div class="card">
-                <h5 class="card-header">Company Details</h5>
                 <div class="card-body">
-                    <h5 class="card-title">
-                        {{ $company->company_name }}
-                    </h5>
                     <p class="card-text">{{ $company->company_description }}</p>
                     <p class="card-text">{{ $company->company_address }}</p>
                     <p class="card-text">{{ $company->company_phone }}</p>
@@ -24,6 +29,8 @@
                     @endforeach
                 </div>
                 <div class="card-footer text-muted">
+                    @if(Auth::check())
+
                     {!! Form::open(['method' => 'DELETE', 'route' => ['companies.destroy', $company->id] ]) !!}
                     <!--<a href="{{ url('companies') }}" class="btn btn-primary">Back</a>-->
                     @can('Edit Company')
@@ -34,6 +41,9 @@
                     {!! Form::button('<i class=" fa fa-trash-o fa-lg"></i>', ['type' => 'submit', 'class' => 'btn btn-danger icon-style'] )  !!}
                     @endcan
                     {!! Form::close() !!}
+                    <hr>
+                    @endif
+                    <p class="card-text">Last Updated {{$company->updated_at}}</p>
                 </div>
             </div>
         </div>

@@ -37,6 +37,12 @@
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Companies">
+                    <a class="nav-link" href="{{ url('jobs') }}">
+                        <i class="fa fa-fw fa-heart"></i>
+                        <span class="nav-link-text">Jobs</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Companies">
                     <a class="nav-link" href="{{ url('companies') }}">
                         <i class="fa fa-fw fa-building"></i>
                         <span class="nav-link-text">Companies</span>
@@ -107,9 +113,9 @@
                 <li class="nav-item">
                     <form class="form-inline my-2 my-lg-0 mr-lg-2">
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Search">
+                            <input class="form-control" type="text" placeholder="Search" disabled>
                             <span class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-primary" type="button" disabled>
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
